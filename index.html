@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eyes On Your Business</title>
+    <meta
+      name="description"
+      content="Targeted shared postcard mailers for local businesses that want visibility in the right neighborhoods."
+    />
+    <style>
+      :root {
+        --navy: #0f172a;
+        --sky: #38bdf8;
+        --slate: #475569;
+        --ink: #0b1324;
+        --white: #f8fafc;
+        --line: #dbe4ef;
+        --panel: #ffffff;
+        --soft: #eef7fd;
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+        --radius: 18px;
+        --radius-sm: 12px;
+        --max: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: linear-gradient(180deg, #f8fbff 0%, #ffffff 30%);
+        line-height: 1.55;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .wrap {
+        width: min(calc(100% - 32px), var(--max));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+        background: rgba(248, 250, 252, 0.86);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 16px 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-weight: 800;
+        color: var(--navy);
+      }
+
+      .logo img {
+        width: 176px;
+        height: auto;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: var(--slate);
+        font-size: 14px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 999px;
+        padding: 14px 20px;
+        font-weight: 700;
+        transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: var(--navy);
+        color: var(--white);
+        box-shadow: var(--shadow);
+      }
+
+      .btn-secondary {
+        background: var(--white);
+        color: var(--navy);
+        border: 1px solid var(--line);
+      }
+
+      .hero {
+        padding: 72px 0 48px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 34px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--soft);
+        color: var(--navy);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        color: var(--navy);
+        line-height: 1.05;
+      }
+
+      h1 {
+        margin-top: 18px;
+        font-size: clamp(42px, 7vw, 70px);
+        letter-spacing: -0.04em;
+      }
+
+      h2 {
+        font-size: clamp(28px, 4vw, 42px);
+        letter-spacing: -0.03em;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      .lead {
+        margin-top: 20px;
+        font-size: 19px;
+        color: var(--slate);
+        max-width: 640px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .hero-notes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .pill {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--white);
+        border: 1px solid var(--line);
+        color: var(--slate);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .panel {
+        background: linear-gradient(180deg, #ffffff 0%, #f6fbff 100%);
+        border: 1px solid rgba(56, 189, 248, 0.18);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 28px;
+      }
+
+      .mock-card {
+        border-radius: 22px;
+        overflow: hidden;
+        background: var(--navy);
+        color: var(--white);
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+      }
+
+      .mock-card-top {
+        padding: 24px;
+        background: linear-gradient(135deg, #0f172a 0%, #183256 100%);
+      }
+
+      .mock-card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 16px;
+        background: #ffffff;
+      }
+
+      .slot {
+        background: #f8fafc;
+        border: 1px solid #dbe4ef;
+        border-radius: 16px;
+        padding: 14px;
+        min-height: 110px;
+      }
+
+      .slot strong {
+        display: block;
+        color: var(--navy);
+        margin-bottom: 8px;
+        font-size: 15px;
+      }
+
+      .slot span {
+        display: block;
+        color: var(--slate);
+        font-size: 13px;
+      }
+
+      section {
+        padding: 42px 0;
+      }
+
+      .section-head {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 28px;
+        max-width: 760px;
+      }
+
+      .section-copy {
+        color: var(--slate);
+        font-size: 18px;
+      }
+
+      .grid-3,
+      .grid-4,
+      .grid-2 {
+        display: grid;
+        gap: 18px;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.04);
+      }
+
+      .card p,
+      .faq p {
+        margin: 10px 0 0;
+        color: var(--slate);
+      }
+
+      .number {
+        width: 36px;
+        height: 36px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--soft);
+        color: var(--navy);
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      .fit-tag {
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 18px;
+        text-align: center;
+        font-weight: 700;
+        color: var(--navy);
+      }
+
+      .cta {
+        padding: 28px;
+        border-radius: 28px;
+        background: linear-gradient(135deg, #0f172a 0%, #183256 65%, #1e4a79 100%);
+        color: var(--white);
+        box-shadow: var(--shadow);
+      }
+
+      .cta h2,
+      .cta p,
+      .cta h3 {
+        color: var(--white);
+      }
+
+      .cta p {
+        opacity: 0.9;
+      }
+
+      .contact-box {
+        display: grid;
+        gap: 14px;
+        padding: 20px;
+        background: rgba(248, 250, 252, 0.08);
+        border: 1px solid rgba(248, 250, 252, 0.16);
+        border-radius: 18px;
+      }
+
+      .faq {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+      }
+
+      footer {
+        padding: 36px 0 52px;
+        color: var(--slate);
+        font-size: 14px;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .grid-3,
+        .grid-4,
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav-links {
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          padding-top: 44px;
+        }
+
+        .logo img {
+          width: 150px;
+        }
+
+        .panel,
+        .cta {
+          padding: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="wrap nav">
+        <a class="logo" href="#top" aria-label="Eyes On Your Business home">
+          <img src="./branding/eyes-on-your-business-logo-final.svg" alt="Eyes On Your Business" />
+        </a>
+        <div class="nav-links">
+          <a href="#how">How it works</a>
+          <a href="#fit">Who it's for</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn btn-primary" href="#contact">Get rates</a>
+        </div>
+      </div>
+    </div>
+
+    <main id="top">
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow">Targeted shared postcard advertising</div>
+            <h1>Put your business in local mailboxes that matter.</h1>
+            <p class="lead">
+              Eyes On Your Business helps local businesses get seen by the right households through
+              neighborhood postcard campaigns built for response, not fluff.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#contact">Get rates and availability</a>
+              <a class="btn btn-secondary" href="#how">See how it works</a>
+            </div>
+            <div class="hero-notes">
+              <div class="pill">Targeted neighborhood distribution</div>
+              <div class="pill">One business per category per card</div>
+              <div class="pill">Built for local service businesses</div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="mock-card">
+              <div class="mock-card-top">
+                <strong style="font-size: 22px; display: block; margin-bottom: 10px;">Local Homeowner Offers</strong>
+                <span style="color: rgba(248, 250, 252, 0.82); font-size: 15px;">
+                  Shared postcard example with category-exclusive local advertisers.
+                </span>
+              </div>
+              <div class="mock-card-grid">
+                <div class="slot">
+                  <strong>HVAC</strong>
+                  <span>Seasonal tune-up offer</span>
+                </div>
+                <div class="slot">
+                  <strong>Roofing</strong>
+                  <span>Free inspection call to action</span>
+                </div>
+                <div class="slot">
+                  <strong>Plumbing</strong>
+                  <span>Drain or leak repair promo</span>
+                </div>
+                <div class="slot">
+                  <strong>Landscaping</strong>
+                  <span>Neighborhood spring cleanup offer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Why this works better than generic local marketing</h2>
+            <p class="section-copy">
+              Most local businesses do not need more vague impressions. They need to get in front of
+              the right homes with a clear offer people can actually respond to.
+            </p>
+          </div>
+          <div class="grid-3">
+            <div class="card">
+              <h3>Focused distribution</h3>
+              <p>
+                Mailers are aimed at selected neighborhoods, so the message reaches households that make
+                sense for the business category.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Category exclusivity</h3>
+              <p>
+                One business per category on each card. No direct competitor sitting next to your ad.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Offer-led creative</h3>
+              <p>
+                We keep the message simple and practical, so the ad is built around action, not just branding.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="how">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>How it works</h2>
+            <p class="section-copy">
+              Simple process. Clear fit. No agency theater.
+            </p>
+          </div>
+          <div class="grid-4">
+            <div class="card">
+              <div class="number">1</div>
+              <h3>Choose the right route</h3>
+              <p>We match the campaign to neighborhoods that fit the advertiser and offer.</p>
+            </div>
+            <div class="card">
+              <div class="number">2</div>
+              <h3>Lock category placement</h3>
+              <p>Each card reserves one business per category to keep the ad mix clean.</p>
+            </div>
+            <div class="card">
+              <div class="number">3</div>
+              <h3>Build a clear ad</h3>
+              <p>Offer, call to action, and simple creative built to get attention fast.</p>
+            </div>
+            <div class="card">
+              <div class="number">4</div>
+              <h3>Print and mail</h3>
+              <p>The final card is produced and mailed to the selected households.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="fit">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Best fit for businesses that sell into neighborhoods</h2>
+            <p class="section-copy">
+              The strongest early categories are local services with a clear homeowner offer and obvious need.
+            </p>
+          </div>
+          <div class="grid-4">
+            <div class="fit-tag">Roofing</div>
+            <div class="fit-tag">HVAC</div>
+            <div class="fit-tag">Plumbing</div>
+            <div class="fit-tag">Electrical</div>
+            <div class="fit-tag">Landscaping</div>
+            <div class="fit-tag">Pest Control</div>
+            <div class="fit-tag">House Cleaning</div>
+            <div class="fit-tag">Flooring</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap grid-2">
+          <div class="card">
+            <h3>What advertisers get</h3>
+            <p>
+              Placement on a targeted shared postcard, category protection on the card, and a cleaner way
+              to reach local homeowners than another generic boosted post.
+            </p>
+          </div>
+          <div class="card">
+            <h3>What we do not promise</h3>
+            <p>
+              We do not promise guaranteed ROI. We focus on targeted exposure, stronger offers, and cleaner local distribution.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Advertiser FAQ</h2>
+            <p class="section-copy">
+              The questions a serious local business owner will ask before booking a slot.
+            </p>
+          </div>
+          <div class="grid-2">
+            <div class="faq">
+              <h3>What kinds of businesses are the best fit?</h3>
+              <p>Usually home services and other local businesses with a simple offer for homeowners.</p>
+            </div>
+            <div class="faq">
+              <h3>Do you allow multiple businesses in the same category?</h3>
+              <p>No. We keep one business per category on each card.</p>
+            </div>
+            <div class="faq">
+              <h3>How are neighborhoods chosen?</h3>
+              <p>Based on the business category, likely customer profile, and route fit.</p>
+            </div>
+            <div class="faq">
+              <h3>Can you help with the ad itself?</h3>
+              <p>Yes. We can help shape the offer and layout so the message is clear and usable.</p>
+            </div>
+            <div class="faq">
+              <h3>What is included in the price?</h3>
+              <p>That depends on the mailing, but pricing is built around placement, production, and distribution.</p>
+            </div>
+            <div class="faq">
+              <h3>How do I check availability?</h3>
+              <p>Use the contact section below to request rates and available categories for the next mailing.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap">
+          <div class="cta grid-2">
+            <div>
+              <h2>Want to see if your business is a fit for the next mailing?</h2>
+              <p style="margin-top: 14px; font-size: 18px;">
+                Request rates, available categories, and target neighborhood info. This is the page we can send in outreach right away.
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn-primary" style="background: #38bdf8; color: #0f172a;" href="mailto:hello@eyesonbusiness.com">Email us</a>
+                <a class="btn btn-secondary" href="https://cal.com" target="_blank" rel="noreferrer">Book a call</a>
+              </div>
+            </div>
+            <div class="contact-box">
+              <h3>Suggested contact block</h3>
+              <p><strong>Email:</strong> hello@eyesonbusiness.com</p>
+              <p><strong>CTA:</strong> Get rates and availability</p>
+              <p><strong>Optional:</strong> Add a short form or calendar once you pick the stack.</p>
+              <p><strong>Note:</strong> Keep the first version simple. A working CTA beats a fancy build.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        Eyes On Your Business, targeted shared postcard mailers for local businesses.
+      </div>
+    </footer>
+  </body>
+</html>
